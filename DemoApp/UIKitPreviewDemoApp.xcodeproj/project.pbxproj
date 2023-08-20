@@ -13,7 +13,7 @@
 		CB0248952A91D8C700F15CDA /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CB0248932A91D8C700F15CDA /* Main.storyboard */; };
 		CB0248972A91D8CA00F15CDA /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CB0248962A91D8CA00F15CDA /* Assets.xcassets */; };
 		CB02489A2A91D8CA00F15CDA /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CB0248982A91D8CA00F15CDA /* LaunchScreen.storyboard */; };
-		CB0248A32A91D8E200F15CDA /* UIKitPreview in Frameworks */ = {isa = PBXBuildFile; productRef = CB0248A22A91D8E200F15CDA /* UIKitPreview */; };
+		CBF8F8E12A9251A900B48D5E /* UIKitPreview in Frameworks */ = {isa = PBXBuildFile; productRef = CBF8F8E02A9251A900B48D5E /* UIKitPreview */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -32,7 +32,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				CB0248A32A91D8E200F15CDA /* UIKitPreview in Frameworks */,
+				CBF8F8E12A9251A900B48D5E /* UIKitPreview in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -44,6 +44,7 @@
 			children = (
 				CB02488C2A91D8C700F15CDA /* UIKitPreviewDemoApp */,
 				CB02488B2A91D8C700F15CDA /* Products */,
+				CBF8F8DF2A9251A900B48D5E /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -69,6 +70,13 @@
 			path = UIKitPreviewDemoApp;
 			sourceTree = "<group>";
 		};
+		CBF8F8DF2A9251A900B48D5E /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -86,7 +94,7 @@
 			);
 			name = UIKitPreviewDemoApp;
 			packageProductDependencies = (
-				CB0248A22A91D8E200F15CDA /* UIKitPreview */,
+				CBF8F8E02A9251A900B48D5E /* UIKitPreview */,
 			);
 			productName = UIKitPreviewDemoApp;
 			productReference = CB02488A2A91D8C700F15CDA /* UIKitPreviewDemoApp.app */;
@@ -117,7 +125,7 @@
 			);
 			mainGroup = CB0248812A91D8C700F15CDA;
 			packageReferences = (
-				CB0248A12A91D8E200F15CDA /* XCLocalSwiftPackageReference ".." */,
+				CBF8F8DC2A92517900B48D5E /* XCLocalSwiftPackageReference "../UIKitPreview" */,
 			);
 			productRefGroup = CB02488B2A91D8C700F15CDA /* Products */;
 			projectDirPath = "";
@@ -371,15 +379,16 @@
 /* End XCConfigurationList section */
 
 /* Begin XCLocalSwiftPackageReference section */
-		CB0248A12A91D8E200F15CDA /* XCLocalSwiftPackageReference ".." */ = {
+		CBF8F8DC2A92517900B48D5E /* XCLocalSwiftPackageReference "../UIKitPreview" */ = {
 			isa = XCLocalSwiftPackageReference;
-			relativePath = ..;
+			relativePath = ../UIKitPreview;
 		};
 /* End XCLocalSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
-		CB0248A22A91D8E200F15CDA /* UIKitPreview */ = {
+		CBF8F8E02A9251A900B48D5E /* UIKitPreview */ = {
 			isa = XCSwiftPackageProductDependency;
+			package = CBF8F8DC2A92517900B48D5E /* XCLocalSwiftPackageReference "../UIKitPreview" */;
 			productName = UIKitPreview;
 		};
 /* End XCSwiftPackageProductDependency section */
