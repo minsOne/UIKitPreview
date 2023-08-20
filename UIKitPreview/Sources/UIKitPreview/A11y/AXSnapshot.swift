@@ -16,7 +16,7 @@ public extension UIView {
         descriptions.enumerated().forEach { index, desc in
             description += "\n│ 🗣️ \(index+1)번째 접근성 요소\n\(desc)"
         }
-        description += "\n└─────────────────────────────\n"
+        description += "\n└──────────────────────────────\n"
         return description
     }
 

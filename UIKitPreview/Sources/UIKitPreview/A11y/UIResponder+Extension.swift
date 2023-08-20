@@ -21,7 +21,8 @@ extension UIResponder {
 
     private var hasBlockingElementInResponderChain: Bool {
         allItemsInResponderChain.contains(where: { item in
-            item.isExposedToAssistiveTech || (item as? UIView)?.isHidden == true
+            item.isExposedToAssistiveTech
+                || (item as? UIView)?.isUserHidden == true
         })
     }
 
@@ -70,14 +71,20 @@ extension UIResponder {
 
 extension UIView {
     @objc override var isExposedToAssistiveTech: Bool {
-        if isHidden {
+        if isHidden || alpha.isZero {
             return false
         }
-
-        if allItemsInResponderChain.compactMap({ $0 as? UIView }).contains(where: { $0.isHidden }) {
+        if allItemsInResponderChain
+            .compactMap({ $0 as? UIView })
+            .contains(where: { $0.isUserHidden })
+        {
             return false
         }
 
         return super.isExposedToAssistiveTech
+    }
+
+    var isUserHidden: Bool {
+        return isHidden || alpha.isZero
     }
 }
