@@ -8,7 +8,7 @@ struct BadgeLabelBuilder {
         label.text = "\(index)"
         label.font = .boldSystemFont(ofSize: 14)
         label.textColor = .white
-        label.backgroundColor = bgColors[index%bgColors.count].withAlphaComponent(0.5)
+        label.backgroundColor = bgColors[index%bgColors.count]
         label.isUserInteractionEnabled = false
         label.accessibilityTraits = .none
         label.isAccessibilityElement = false

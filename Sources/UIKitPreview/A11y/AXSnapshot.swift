@@ -7,11 +7,16 @@ public extension UIView {
             case let descriptions = exposedAccessibleViews.map(\.accessibilityDescription),
             descriptions.isNotEmpty
         else { return "" }
-
-        let seperator = "------------------------------------------------------------"
-        var description = seperator + "\n"
-        description += descriptions.joined(separator: "\n\(seperator)\n")
-        description += "\n\(seperator)"
+        
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
+        
+        var description = "┌────── 🗣️ Voice Over ─────────"
+        description += "\n│ LogTime : \(dateFormatter.string(from: Date()))"
+        descriptions.enumerated().forEach { index, desc in
+            description += "\n│ 🗣️ \(index+1)번째 접근성 요소\n\(desc)"
+        }
+        description += "\n└─────────────────────────────\n"
         return description
     }
 

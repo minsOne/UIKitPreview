@@ -16,27 +16,28 @@ extension UIView {
 
 private extension UIView {
     func attachBagde(index: Int, border: Bool) {
-        let label = BadgeLabelBuilder().build(index: index)
+        let badge = BadgeLabelBuilder().build(index: index)
         guard
+            border,
             let window = UIApplication.shared.windows.first(where: \.isKeyWindow),
-            border
+            let rootView = window.rootViewController?.view,
+            let frame = superview?.convert(frame, to: rootView)
         else {
-            addSubview(label)
+            addSubview(badge)
             return
         }
-        
-        lazy var bgColors: [UIColor] = [
+
+        let bgColors: [UIColor] = [
             .systemRed, .systemGreen, .systemOrange, .systemYellow, .systemPink, .systemTeal, .systemIndigo, .systemBrown,
         ]
-        
-        let frame = convert(frame, from: window)
         let color = bgColors[index % bgColors.count]
         let borderView = makeBorderView(frame: frame, borderColor: color)
+        badge.center = frame.origin
+
         window.addSubview(borderView)
-        label.center = .zero
-        borderView.addSubview(label)
+        window.addSubview(badge)
     }
-    
+
     private func makeBorderView(frame: CGRect, borderColor: UIColor) -> UIView {
         let borderView = UIView(frame: frame)
         borderView.accessibilityTraits = .none

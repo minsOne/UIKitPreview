@@ -12,19 +12,16 @@ import UIKit
 ///
 /// Replace this closure to generate your custom snapshot format
 public var generateAccessibilityDescription: (NSObject) -> String = { object in
-    var description = generateAccessbilityLabelDescription(object)
 
-    let accessibilityValueDescription = generateAccessibilityValueDescription(object)
-    if accessibilityValueDescription.isNotEmpty, description.isNotEmpty {
-        description += ", "
-    }
-    description += accessibilityValueDescription
-
-    description += generateAccessibilityTraitDescription(object)
-    description += generateAccessibilityHintDescription(object)
-    description += generateAccessibilityCustomActionsDescription(object)
-
-    return description
+    let list = [
+        generateAccessbilityLabelDescription(object),
+        generateAccessibilityValueDescription(object),
+        generateAccessibilityTraitDescription(object),
+        generateAccessibilityHintDescription(object),
+        generateAccessibilityCustomActionsDescription(object),
+    ]
+    
+    return list.filter(\.isNotEmpty).joined(separator: "\n")
 }
 
 public var generateAccessbilityLabelDescription: (NSObject) -> String = { object in
@@ -43,7 +40,12 @@ public var generateAccessbilityLabelDescription: (NSObject) -> String = { object
     } else if let segmentedControl = object as? UISegmentedControl {
         description = "SegmentedControl with \(segmentedControl.numberOfSegments) segments"
     }
-    return description
+
+    if description.isNotEmpty {
+        return "│ [Label] \(description)"
+    } else {
+        return ""
+    }
 }
 
 public var generateAccessibilityValueDescription: (NSObject) -> String = { object in
@@ -77,7 +79,12 @@ public var generateAccessibilityValueDescription: (NSObject) -> String = { objec
             description = "Selected: None"
         }
     }
-    return description
+
+    if description.isNotEmpty {
+        return "│ [Value] \(description)"
+    } else {
+        return ""
+    }
 }
 
 public var generateAccessibilityTraitDescription: (NSObject) -> String = { object in
@@ -85,39 +92,48 @@ public var generateAccessibilityTraitDescription: (NSObject) -> String = { objec
 
     switch object {
     case _ where object.accessibilityTraits.isEmpty == false && object.accessibilityTraits.isStandardTraits:
-        description = "\n\(object.accessibilityTraits.descripion)"
+        description = "\(object.accessibilityTraits.descripion)"
     case is UIButton,
          is UISwitch:
-        description = "\n\(UIAccessibilityTraits.button.descripion)"
+        description = "\(UIAccessibilityTraits.button.descripion)"
     case is UISlider:
-        description = "\n\(UIAccessibilityTraits.adjustable.descripion)"
+        description = "\(UIAccessibilityTraits.adjustable.descripion)"
     case is UITextView:
-        description = "\nTextView"
+        description = "TextView"
     case is UITextField:
-        description = "\nTextField"
+        description = "TextField"
     default:
         break
     }
 
-    return description
+    if description.isNotEmpty {
+        return "│ [Trait] \(description)"
+    } else {
+        return ""
+    }
 }
 
 public var generateAccessibilityHintDescription: (NSObject) -> String = { object in
     var description = ""
     if let hint = object.accessibilityHint {
-        description = "\n\(hint)"
+        description = "│ [Hint] \(hint)"
     }
     return description
 }
 
 public var generateAccessibilityCustomActionsDescription: (NSObject) -> String = { object in
     var description = ""
-    if let actions = object.accessibilityCustomActions {
-        description += "\n"
-        description += "Actions: "
+    if let actions = object.accessibilityCustomActions,
+       actions.isNotEmpty
+    {
         description += actions.map(\.name).joined(separator: ", ")
     }
-    return description
+
+    if description.isNotEmpty {
+        return "│ [Actions] \(description)"
+    } else {
+        return ""
+    }
 }
 
 extension NSObject {
